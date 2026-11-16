@@ -1,0 +1,1175 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Escolar | Mundo de Libros</title>
+
+<style>
+/* ===== CONFIGURACIÓN GENERAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --violeta: #7045c5;
+    --rosa: #f18bbd;
+    --azul: #6c9ff5;
+    --oscuro: #292344;
+    --fondo: #f8f5ff;
+    --blanco: #ffffff;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--oscuro);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button, input {
+    font: inherit;
+}
+
+/* ===== BARRA DE NAVEGACIÓN ===== */
+header {
+    background: rgba(255,255,255,0.96);
+    padding: 15px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px #38205c18;
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+    color: var(--violeta);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.logo span {
+    font-size: 31px;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+nav a {
+    padding: 10px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    background: var(--violeta);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* ===== PORTADA ===== */
+.hero {
+    min-height: 570px;
+    padding: 70px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    background:
+      linear-gradient(115deg, #30204fef, #7045c5d9, #e88ab8c9),
+      url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1800&q=85")
+      center/cover;
+    color: white;
+}
+
+.hero-text {
+    max-width: 610px;
+    animation: aparecer 1s ease both;
+}
+
+.etiqueta {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 30px;
+    background: #ffffff25;
+    border: 1px solid #ffffff50;
+    margin-bottom: 22px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 5.5vw, 68px);
+    line-height: 1.1;
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    color: #ffc5e2;
+}
+
+.hero p {
+    line-height: 1.9;
+    font-size: 17px;
+    color: #f4eaff;
+    margin-bottom: 30px;
+}
+
+.boton {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.boton-principal {
+    background: white;
+    color: var(--violeta);
+}
+
+.boton:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 25px #1b103c40;
+}
+
+.hero-imagen {
+    width: 38%;
+    max-width: 420px;
+    min-width: 240px;
+    animation: flotar 4s ease-in-out infinite;
+}
+
+.hero-imagen img {
+    width: 100%;
+    border-radius: 48% 48% 20px 20px;
+    border: 7px solid #ffffff55;
+    box-shadow: 0 20px 50px #21133860;
+}
+
+/* ===== ESTADÍSTICAS ===== */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 35px 8%;
+    background: white;
+}
+
+.estadistica {
+    text-align: center;
+    padding: 12px;
+}
+
+.estadistica strong {
+    display: block;
+    color: var(--violeta);
+    font-size: 29px;
+}
+
+.estadistica span {
+    color: #756c87;
+    font-size: 14px;
+}
+
+/* ===== SECCIONES ===== */
+.seccion {
+    padding: 75px 8%;
+}
+
+.titulo-seccion {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.titulo-seccion .mini {
+    color: var(--violeta);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.titulo-seccion h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 12px 0;
+}
+
+.titulo-seccion p {
+    color: #777087;
+    line-height: 1.8;
+    max-width: 650px;
+    margin: auto;
+}
+
+/* ===== BUSCADOR ===== */
+.buscador {
+    max-width: 650px;
+    margin: 0 auto 35px;
+    display: flex;
+    gap: 10px;
+}
+
+.buscador input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px 20px;
+    border: 2px solid #e4d9fa;
+    border-radius: 30px;
+    outline: none;
+    background: white;
+}
+
+.buscador input:focus {
+    border-color: var(--violeta);
+    box-shadow: 0 0 0 4px #7045c51c;
+}
+
+.buscador button {
+    background: var(--violeta);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 0 22px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buscador button:hover {
+    background: #50309b;
+}
+
+/* ===== TARJETAS DE LIBROS ===== */
+.libros {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.tarjeta {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px #38205c10;
+    transition: transform 0.35s, box-shadow 0.35s;
+    animation: aparecer 0.8s ease both;
+}
+
+.tarjeta:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 35px #38205c20;
+}
+
+.tarjeta img {
+    width: 100%;
+    height: 205px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s;
+}
+
+.tarjeta:hover img {
+    transform: scale(1.06);
+}
+
+.imagen-contenedor {
+    overflow: hidden;
+    position: relative;
+}
+
+.numero {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: white;
+    color: var(--violeta);
+    border-radius: 20px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.tarjeta-contenido {
+    padding: 22px;
+}
+
+.tarjeta h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.tarjeta p {
+    color: #777087;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 72px;
+}
+
+.tag {
+    display: inline-block;
+    background: #f0e9ff;
+    color: #7045c5;
+    border-radius: 20px;
+    padding: 7px 11px;
+    margin: 14px 0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.enlace {
+    display: block;
+    color: var(--violeta);
+    font-weight: 800;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.enlace:hover {
+    color: #e15b9b;
+}
+
+.sin-resultados {
+    display: none;
+    text-align: center;
+    padding: 30px;
+    color: #777087;
+}
+
+/* ===== FRANJA INFORMATIVA ===== */
+.frase {
+    padding: 65px 8%;
+    text-align: center;
+    color: white;
+    background: linear-gradient(120deg, #7045c5, #b66bd9, #ee91bb);
+}
+
+.frase h2 {
+    font-size: clamp(26px, 4vw, 38px);
+    margin-bottom: 18px;
+}
+
+.frase p {
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.9;
+}
+
+/* ===== SERVICIOS ===== */
+.servicios {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.servicio {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 22px;
+    text-align: center;
+    border-bottom: 4px solid #d6c0ff;
+    transition: 0.3s;
+}
+
+.servicio:hover {
+    transform: translateY(-8px);
+    border-bottom-color: var(--rosa);
+}
+
+.servicio .icono {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.servicio h3 {
+    margin-bottom: 12px;
+}
+
+.servicio p {
+    color: #777087;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* ===== CONTACTO ===== */
+.contacto {
+    background: #f0eaff;
+    padding: 70px 8%;
+}
+
+.contacto-contenido {
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    border-radius: 25px;
+    padding: 35px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    box-shadow: 0 10px 35px #38205c12;
+}
+
+.contacto h2 {
+    color: var(--violeta);
+    margin-bottom: 15px;
+}
+
+.contacto p {
+    line-height: 1.9;
+    color: #777087;
+}
+
+.datos {
+    padding: 20px;
+    background: #f8f5ff;
+    border-radius: 18px;
+    line-height: 2.2;
+}
+
+/* ===== PIE DE PÁGINA ===== */
+footer {
+    text-align: center;
+    background: #292344;
+    color: white;
+    padding: 30px 15px;
+    line-height: 1.9;
+}
+
+footer p {
+    color: #d4cbe9;
+    font-size: 13px;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* ===== ADAPTACIÓN A CELULARES ===== */
+@media (max-width: 900px) {
+    header {
+        justify-content: center;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 7%;
+    }
+
+    .hero-imagen {
+        width: 70%;
+    }
+
+    .libros {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .servicios {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    nav {
+        gap: 4px;
+    }
+
+    nav a {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .libros, .servicios {
+        grid-template-columns: 1fr;
+    }
+
+    .estadisticas {
+        padding: 25px 4%;
+        gap: 5px;
+    }
+
+    .estadistica strong {
+        font-size: 22px;
+    }
+
+    .estadistica span {
+        font-size: 11px;
+    }
+
+    .seccion {
+        padding: 55px 6%;
+    }
+
+    .hero-imagen {
+        min-width: 0;
+        width: 90%;
+    }
+
+    .contacto-contenido {
+        grid-template-columns: 1fr;
+        padding: 22px;
+    }
+
+    .buscador button {
+        padding: 0 15px;
+    }
+}
+/* Tarjetas de libros */
+.tarjeta-libro {
+    background: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 15px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transition: transform 0.3s;
+}
+
+.tarjeta-libro:hover {
+    transform: translateY(-5px);
+}
+
+.botones-libro {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.boton-libro {
+    display: inline-block;
+    background: #8e44ad;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.boton-libro:hover {
+    background: #d63384;
+}
+/* Inicio: ESTILO DE LOS ENLACES DE LECTURA*/
+.lecturas {
+    margin-top:  18px;
+    padding: 15px;
+    background: #6c9ff5;
+    border-radius:  12px;
+}
+.lecturas h3 {
+    color:#8e44ad;
+    margin-bottom: 12px;
+}
+.enlace-lectura {
+    display: 18px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap:wrap;
+    padding: 12px;
+    margin: 8px 0;
+    background: white;
+    border-radius: 9px;
+    text-decoration: none;
+    color:#ee91bb
+}
+.boton-leer{
+    background: cadetblue;
+    color: white;
+    padding: 8px 0;
+    border-radius: 7px;
+    text-decoration: none;
+
+}
+.boton-leer:hover{
+    background:#6858ac;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BARRA DE NAVEGACIÓN -->
+<header>
+    <a href="#inicio" class="logo">
+        <span>📚</span> BiblioEscolar
+    </a>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#infantiles">Infantiles</a>
+        <a href="#lengua">Lengua</a>
+        <a href="#ciencias">Ciencias</a>
+        <a href="#matematicas">Matemáticas</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<!-- PORTADA -->
+<section class="hero" id="inicio">
+    <div class="hero-text">
+        <span class="etiqueta">✦ UN UNIVERSO DE CONOCIMIENTO ✦</span>
+
+        <h1>Tu próxima aventura comienza con un <span>libro.</span></h1>
+
+        <p>
+            Bienvenidos a nuestra biblioteca escolar. Un espacio para
+            imaginar, aprender, descubrir nuevos mundos y compartir
+            el maravilloso hábito de la lectura.
+        </p>
+
+        <a href="#catalogo" class="boton boton-principal">
+            Explorar biblioteca →
+        </a>
+    </div>
+
+    <div class="hero-imagen">
+        <img
+          src="ESTANTERIA.jpg"
+          alt="Biblioteca con estanterías llenas de libros">
+    </div>
+</section>
+
+<!-- ESTADÍSTICAS -->
+<section class="estadisticas">
+    <div class="estadistica">
+        <strong>08</strong>
+        <span>Secciones temáticas</span>
+    </div>
+
+    <div class="estadistica">
+        <strong>∞</strong>
+        <span>Historias por descubrir</span>
+    </div>
+
+    <div class="estadistica">
+        <strong>100%</strong>
+        <span>Pasión por aprender</span>
+    </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section class="seccion" id="catalogo">
+
+    <div class="titulo-seccion">
+        <span class="mini">NUESTRO CATÁLOGO</span>
+        <h2>Explorá nuestras secciones</h2>
+        <p>
+            Encontrá libros para todas las edades y materias.
+            Elegí una categoría y descubrí todo lo que podés aprender.
+        </p>
+    </div>
+
+    <!-- BUSCADOR FUNCIONAL -->
+    <div class="buscador">
+        <input
+            type="search"
+            id="buscar"
+            placeholder="🔎 Buscar una materia o categoría..."
+            aria-label="Buscar libros por categoría">
+        <button type="button" id="botonBuscar">Buscar</button>
+    </div>
+
+    <div class="libros" id="listaLibros">
+
+        <!-- INFANTILES -->
+        <article class="tarjeta" id="infantiles"
+            data-categoria="infantiles cuentos niños fabulas imaginación">
+            <div class="INFANTILES">
+                <img
+                  src="INFANTIL.jpg"
+                  alt="Libros para niños">
+                  <div class="lecturas">
+                    <h3>cuentos para leer</h3>
+                    <div class="enlace-lectura"> 
+        <span>Cuentos clásicos para niños</span> 
+        <a class="boton-leer"            href="https://es.wikisource.org/wiki/Cuentos_cl%C3%A1sicos_para_ni%C3%B1os"            target="_blank" rel="noopener"> 
+           📖 Leer 
+        </a> 
+    </div> 
+ 
+    <div class="enlace-lectura"> 
+        <span>Colección de cuentos pintados</span> 
+        <a class="boton-leer" 
+           
+href="https://www.cervantesvirtual.com/obra/coleccion-de-cuentos-pintados-para-ninos-1168
+952/"            target="_blank" rel="noopener"> 
+           📖 Leer 
+        </a> 
+    </div> 
+</div> 
+                  </div>
+                <span class="numero">01 • Lectura</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>🧸 Libros infantiles</h3>
+                <p>
+                    Cuentos, fábulas, leyendas y aventuras que
+                    despiertan la imaginación y fomentan la lectura.
+                </p>
+                <span class="tag">Nivel inicial y primario</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+            <div class="tarjeta-libro">
+                <h3>📚 Cuentos infantiles</h3>
+                <p>Descubrí cuentos, historias y libros para leer.</p>
+            
+                <div class="botones-libro">
+                    <a class="boton-libro"
+                       href="https://biblioargentina.gob.ar/web/lecturas-digitales/"
+                       target="_blank" rel="noopener">
+                       📖 Abrir y leer
+                    </a>
+            
+                    <a class="boton-libro"
+                       href="https://www.cervantesvirtual.com/obra-visor/cuentos-para-ninos--0/html/"
+                       target="_blank" rel="noopener">
+                       📥 Ver cuentos
+                    </a>
+                </div>
+            </div>            
+        </article>
+
+        <!-- LENGUA -->
+        <article class="tarjeta" id="lengua"
+            data-categoria="lengua literatura gramática ortografía escritura poesía">
+            <div class="imagen-contenedor">
+                <img
+                  src="LENGUA.jpg"
+                  alt="Libros y escritura">
+                  <div class="lecturas"> 
+    <h3>📖 Libros y literatura</h3> 
+ 
+    <div class="enlace-lectura"> 
+        <span>Cuentos clásicos</span> 
+        <a class="boton-leer"            href="https://es.wikisource.org/wiki/Categor%C3%ADa:Literatura_infantil_y_juvenil"            target="_blank" rel="noopener"> 
+           📖 Leer 
+        </a> 
+    </div> 
+ 
+    <div class="enlace-lectura"> 
+        <span>Cuentos de Hans Christian Andersen</span> 
+        <a class="boton-leer"            href="https://es.wikisource.org/wiki/Cuentos_cl%C3%A1sicos_para_ni%C3%B1os"            target="_blank" rel="noopener"> 
+           📖 Leer 
+        </a> 
+    </div> 
+</div> 
+                <span class="numero">02 • Comunicación</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>✍️ Lengua y Literatura</h3>
+                <p>
+                    Novelas, poesía, gramática, ortografía y recursos
+                    para mejorar la escritura y la comprensión lectora.
+                </p>
+                <span class="tag">Lectura y escritura</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+            <div class="tarjeta-libro">
+                <h3>📕 Lengua y Literatura</h3>
+                <p>Novelas, cuentos, poemas y obras literarias.</p>
+            
+                <div class="botones-libro">
+                    <a class="boton-libro"
+                       href="https://www.argentina.gob.ar/educacion/materiales-didacticos/clasicos-universales"
+                       target="_blank" rel="noopener">
+                       📖 Abrir libros
+                    </a>
+            
+                    <a class="boton-libro"
+                       href="https://es.wikisource.org/"
+                       target="_blank" rel="noopener">
+                       📥 Ver textos disponibles
+                    </a>
+                </div>
+            </div>
+                        
+        </article>
+
+        <!-- CIENCIAS -->
+        <article class="tarjeta" id="ciencias"
+            data-categoria="ciencias naturales biología física química ambiente animales plantas">
+            <div class="imagen-contenedor">
+                <img
+                  src="CIENCIAS.jpg"
+                  alt="Materiales científicos de laboratorio">
+                  <div class="lecturas"> 
+    <h3>🔬 Material de ciencias</h3> 
+ 
+    <div class="enlace-lectura"> 
+        <span>Ciencias naturales y matemática</span> 
+        <a class="boton-leer" 
+           
+href="https://www.educ.ar/recursos/151002/coleccion-las-ciencias-naturales-y-la-matematica
+" 
+           target="_blank" rel="noopener"> 
+           📖 Abrir 
+        </a> 
+    </div> 
+</div> 
+                <span class="numero">03 • Investigación</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>🔬 Ciencias Naturales</h3>
+                <p>
+                    Descubrí el cuerpo humano, los animales, las plantas,
+                    la materia, la energía y los secretos del universo.
+                </p>
+                <span class="tag">Ciencia y naturaleza</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+            <div class="tarjeta-libro">
+                <h3>🔬 Ciencias Naturales</h3>
+                <p>Materiales educativos de ciencias y tecnología.</p>
+            
+                <div class="botones-libro">
+                    <a class="boton-libro"
+                       href="https://www.educ.ar/recursos/151002/coleccion-las-ciencias-naturales-y-la-matematica"
+                       target="_blank" rel="noopener">
+                       📖 Abrir materiales
+                    </a>
+            
+                    <a class="boton-libro"
+                       href="https://www.educ.ar/"
+                       target="_blank" rel="noopener">
+                       📥 Buscar descargas
+                    </a>
+                </div>
+            </div>
+            
+        </article>
+
+        <!-- MATEMÁTICAS -->
+        <article class="tarjeta" id="matematicas"
+            data-categoria="matemáticas matemática números geometría álgebra cálculo">
+            <div class="imagen-contenedor">
+                <img
+                  src="MATEMATICAS.jpg"
+                  alt="Cuaderno con cálculos matemáticos">
+                  <div class="lecturas"> 
+    <h3>📐 Material de matemáticas</h3> 
+ 
+    <div class="enlace-lectura"> 
+        <span>Colección de ciencias y matemática</span> 
+        <a class="boton-leer" 
+           
+href="https://www.educ.ar/recursos/151002/coleccion-las-ciencias-naturales-y-la-matematica
+" 
+           target="_blank" rel="noopener"> 
+           📖 Abrir 
+        </a> 
+    </div> 
+</div> 
+                <span class="numero">04 • Lógica</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>➗ Matemáticas</h3>
+                <p>
+                    Manuales, ejercicios y explicaciones de álgebra,
+                    geometría, números, funciones y resolución de problemas.
+                </p>
+                <span class="tag">Razonamiento lógico</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+            <div class="tarjeta-libro">
+                <h3>📐 Matemáticas</h3>
+                <p>Libros y recursos para estudiar números,
+                   álgebra, geometría y funciones.</p>
+            
+                <div class="botones-libro">
+                    <a class="boton-libro"
+                       href="https://www.educ.ar/recursos/151002/coleccion-las-ciencias-naturales-y-la-matematica"
+                       target="_blank" rel="noopener">
+                       📖 Abrir materiales
+                    </a>
+            
+                    <a class="boton-libro"
+                       href="https://www.educ.ar/recursos/122943/coleccion-educar-en-el-aula-matematica-secundaria"
+                       target="_blank" rel="noopener">
+                       📥 Ver recursos
+                    </a>
+                </div>
+            </div>
+                        
+        </article>
+
+        <!-- HISTORIA -->
+        <article class="tarjeta" id="historia"
+            data-categoria="historia pasado civilizaciones culturas acontecimientos biografías">
+            <div class="imagen-contenedor">
+                <img
+                  src="HISTORIA.jpg"
+                  alt="Libros y documentos históricos">
+                <span class="numero">05 • Pasado</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>🏛️ Historia</h3>
+                <p>
+                    Viajá a otras épocas, conocé civilizaciones,
+                    acontecimientos históricos y personajes importantes.
+                </p>
+                <span class="tag">Historia universal y argentina</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+        </article>
+
+        <!-- GEOGRAFÍA -->
+        <article class="tarjeta" id="geografia"
+            data-categoria="geografía mapas países continentes clima población territorio">
+            <div class="imagen-contenedor">
+                <img
+                  src="GEOGRAFIA.jpg"
+                  alt="Mapa para estudiar geografía">
+                <span class="numero">06 • Nuestro planeta</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>🌎 Geografía</h3>
+                <p>
+                    Explorá continentes, países, mapas, climas,
+                    poblaciones y las características de nuestro planeta.
+                </p>
+                <span class="tag">Mundo y sociedad</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+        </article>
+
+        <!-- INGLÉS -->
+        <article class="tarjeta" id="ingles"
+            data-categoria="inglés ingles idiomas vocabulario gramática traducción">
+            <div class="imagen-contenedor">
+                <img
+                  src="INGLES.jpg"
+                  alt="Libros y materiales de estudio">
+                <span class="numero">07 • Idiomas</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>🇬🇧 Inglés</h3>
+                <p>
+                    Diccionarios, lecturas adaptadas, vocabulario,
+                    gramática y actividades para aprender otro idioma.
+                </p>
+                <span class="tag">Aprendizaje de idiomas</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+        </article>
+
+        <!-- TECNOLOGÍA -->
+        <article class="tarjeta" id="tecnologia"
+            data-categoria="tecnología informática computación programación robótica electrónica">
+            <div class="imagen-contenedor">
+                <img
+                  src="TECNOLOGIA.jpg"
+                  alt="Computadora para estudiar tecnología">
+                <span class="numero">08 • Innovación</span>
+            </div>
+            <div class="tarjeta-contenido">
+                <h3>💻 Tecnología</h3>
+                <p>
+                    Informática, programación, robótica, electrónica
+                    y herramientas digitales para el mundo actual.
+                </p>
+                <span class="tag">Tecnología e innovación</span>
+                <a class="enlace" href="#servicios">Explorar sección →</a>
+            </div>
+        </article>
+
+    </div>
+
+    <p class="sin-resultados" id="sinResultados">
+        📚 No encontramos esa categoría. Probá con otra palabra.
+    </p>
+</section>
+
+<!-- FRASE DESTACADA -->
+<section class="frase">
+    <h2>📖 Cada libro abre una puerta a un nuevo mundo</h2>
+    <p>
+        Leer nos permite aprender, imaginar, desarrollar el pensamiento
+        crítico y conocer otras culturas. La biblioteca es un lugar
+        donde cada estudiante puede descubrir su próxima gran aventura.
+    </p>
+</section>
+
+<!-- SERVICIOS -->
+<section class="seccion" id="servicios">
+
+    <div class="titulo-seccion">
+        <span class="mini">MÁS QUE LIBROS</span>
+        <h2>¿Qué ofrece nuestra biblioteca?</h2>
+        <p>
+            Un espacio escolar para estudiar, investigar, leer y compartir.
+        </p>
+    </div>
+
+    <div class="servicios">
+        <div class="servicio">
+            <div class="icono">🤝</div>
+            <h3>Espacio de lectura</h3>
+            <p>
+                Compartí recomendaciones, descubrí autores y disfrutá
+                de la lectura individual o grupal.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+    <div class="contacto-contenido">
+        <div>
+            <h2>📩 Contactanos</h2>
+            <p>
+                ¿Buscás un libro para una tarea? ¿Querés recomendar
+                una lectura? Acercate a la biblioteca de tu escuela
+                para recibir ayuda.
+            </p>
+            <br>
+            <a href="#catalogo" class="boton"
+               style="background:#7045c5;color:white">
+                Volver al catálogo
+            </a>
+        </div>
+
+        <div class="datos">
+            <strong>📍 Ubicación</strong>
+            <p>Biblioteca de nuestra institución escolar.</p>
+
+            <strong>🕒 Horarios</strong>
+            <p>Consultar los horarios en la escuela.</p>
+
+            <strong>📚 Atención</strong>
+            <p>Consultas sobre libros y materiales educativos.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PIE DE PÁGINA -->
+<footer>
+    <div style="font-size:30px">📚</div>
+    <h3>BiblioEscolar • Mundo de Libros</h3>
+    <p>Un lugar para aprender, imaginar y crecer.</p>
+    <p>Proyecto educativo de biblioteca escolar © 2026</p>
+</footer>
+
+<!-- JAVASCRIPT: BUSCADOR -->
+<script>
+const buscador = document.getElementById("buscar");
+const botonBuscar = document.getElementById("botonBuscar");
+const tarjetas = document.querySelectorAll(".tarjeta");
+const sinResultados = document.getElementById("sinResultados");
+
+function buscarLibros() {
+    const texto = buscador.value
+        .toLocaleLowerCase("es")
+        .trim();
+
+    let encontrados = 0;
+
+    tarjetas.forEach(function(tarjeta) {
+        const contenido = (
+            tarjeta.innerText + " " +
+            tarjeta.dataset.categoria
+        ).toLocaleLowerCase("es");
+
+        const coincide = contenido.includes(texto);
+
+        tarjeta.style.display = coincide ? "" : "none";
+if (coincide) {
+            encontrados++;
+        }
+    });
+
+    sinResultados.style.display =
+        encontrados === 0 ? "block" : "none";
+}
+
+botonBuscar.addEventListener("click", buscarLibros);
+
+buscador.addEventListener("input", buscarLibros);
+
+buscador.addEventListener("keydown", function(evento) {
+    if (evento.key === "Enter") {
+        buscarLibros();
+    }
+});
+
+// Animación suave al entrar en las secciones.
+document.querySelectorAll('a[href^="#"]').forEach(function(enlace) {
+    enlace.addEventListener("click", function(evento) {
+        const destino = document.querySelector(
+            enlace.getAttribute("href")
+        );
+
+        if (destino) {
+            evento.preventDefault();
+
+            destino.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+            history.replaceState(
+                null,
+                "",
+                enlace.getAttribute("href")
+            );
+        }
+    });
+});
+</script>
+
+</body>
+</html>
+
+
+     
+
